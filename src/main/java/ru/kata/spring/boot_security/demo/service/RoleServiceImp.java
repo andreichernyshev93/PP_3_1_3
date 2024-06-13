@@ -24,7 +24,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Role> getRoleById(Long[] rolesId) {
         return roleDao.getRoleById(rolesId);
+    }
+
+    @Override
+    @Transactional
+    public void addRole(Role role) {
+        roleDao.addRole(role);
     }
 }

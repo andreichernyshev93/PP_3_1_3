@@ -23,4 +23,9 @@ public class RoleDaoImp implements RoleDao {
     public List<Role> getRoleById(Long[] rolesId) {
         return Arrays.stream(rolesId).map(r -> entityManager.find(Role.class, r)).collect(Collectors.toList());
     }
+
+    @Override
+    public void addRole(Role role) {
+        entityManager.persist(role);
+    }
 }

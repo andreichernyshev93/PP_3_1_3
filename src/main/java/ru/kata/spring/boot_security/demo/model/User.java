@@ -12,22 +12,17 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
-    @Column
     private String username;
 
-    @Column
     private String password;
 
-    @Column
     private int age;
 
-    @Column
     private String email;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -44,6 +39,13 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public User(String username, String password, int age, String email) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
@@ -55,7 +57,6 @@ public class User implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public void setPassword(String password) {
         this.password = password;
